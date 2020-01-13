@@ -60,7 +60,23 @@ app.put("/users/:id", (req, res)=>{
         res.status(500).json(error.message)
     })
 })
+app.delete('/users/:id', (req, res)=>{
+    const {id} =req.params
+    remove(id)
+    .then(user => {
+      if (user) {
+        res.status(202).json(`User got deleted`)
+      } else {
+        res.status(404).json({
+          message: `User does not exist`
+        })
+      }
+    })
+    .catch(error => {
+      console.log(error.message)
+    })
 
+})
 app.listen(5000, ()=>{
     console.log('listening on 5000')
 })
