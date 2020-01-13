@@ -28,7 +28,6 @@ app.get('/users/:id', (req, res)=>{
     findById(id)
     .then(user=>{
         if(user){
-            console.log(user)
             res.status(200).json(user)
         }else{
             res.status(404).json({message: 'we cant find that user'})
@@ -38,6 +37,17 @@ app.get('/users/:id', (req, res)=>{
         console.log(error)
 }
     )
+})
+app.post('/users', (req,res)=>{
+    const newUser=req.body
+
+    insert(newUser)
+    .then(user=>{
+        res.status(201).json(user)
+    })
+    .catch(error=>{
+        res.status(500).json({message:error.message})
+    })
 })
 
 app.listen(5000, ()=>{
