@@ -49,6 +49,17 @@ app.post('/users', (req,res)=>{
         res.status(500).json({message:error.message})
     })
 })
+app.put("/users/:id", (req, res)=>{
+    const {id} = req.params
+    const changeUser = req.body
+    update(id, changeUser)
+    .then(user=>{
+        res.status(200).json(user)
+    })
+    .catch(error=>{
+        res.status(500).json(error.message)
+    })
+})
 
 app.listen(5000, ()=>{
     console.log('listening on 5000')
