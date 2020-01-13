@@ -19,8 +19,25 @@ app.get('/users', (req,res)=>{
         res.status(200).json(users)
     })
     .catch(error=>{
-        console.log(error.message)
+       res.status(500).json({message: error.message})
     })
+})
+
+app.get('/users/:id', (req, res)=>{
+    const {id} = req.params
+    findById(id)
+    .then(user=>{
+        if(user){
+            console.log(user)
+            res.status(200).json(user)
+        }else{
+            res.status(404).json({message: 'we cant find that user'})
+        }
+    })
+    .catch(error=>{
+        console.log(error)
+}
+    )
 })
 
 app.listen(5000, ()=>{
